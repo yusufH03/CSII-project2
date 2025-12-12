@@ -9,7 +9,7 @@
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QPushButton
 
-self.submit_button
+
 class Ui_MazeSolver(object):
     def setupUi(self, MazeSolver):
         MazeSolver.setObjectName("MazeSolver")
