@@ -1175,7 +1175,7 @@
      <rect>
       <x>10</x>
       <y>25</y>
-      <width>600</width>
+      <width>590</width>
       <height>40</height>
      </rect>
     </property>
@@ -1194,8 +1194,8 @@
    <widget class="QPushButton" name="submit_button">
     <property name="geometry">
      <rect>
-      <x>255</x>
-      <y>515</y>
+      <x>250</x>
+      <y>500</y>
       <width>100</width>
       <height>20</height>
      </rect>
@@ -1212,10 +1212,10 @@
    <widget class="QLabel" name="output_label">
     <property name="geometry">
      <rect>
-      <x>155</x>
-      <y>570</y>
-      <width>300</width>
-      <height>200</height>
+      <x>15</x>
+      <y>535</y>
+      <width>585</width>
+      <height>250</height>
      </rect>
     </property>
     <property name="font">

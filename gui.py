@@ -7,7 +7,6 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
-from PyQt6.QtWidgets import QPushButton
 
 
 class Ui_MazeSolver(object):
@@ -736,20 +735,20 @@ class Ui_MazeSolver(object):
         self.gridLayout.setRowStretch(6, 1)
         self.gridLayout.setRowStretch(7, 1)
         self.title_label = QtWidgets.QLabel(parent=self.centralwidget)
-        self.title_label.setGeometry(QtCore.QRect(10, 25, 600, 40))
+        self.title_label.setGeometry(QtCore.QRect(10, 25, 590, 40))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.title_label.setFont(font)
         self.title_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.title_label.setObjectName("title_label")
         self.submit_button = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.submit_button.setGeometry(QtCore.QRect(255, 515, 100, 20))
+        self.submit_button.setGeometry(QtCore.QRect(250, 500, 100, 20))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.submit_button.setFont(font)
         self.submit_button.setObjectName("submit_button")
         self.output_label = QtWidgets.QLabel(parent=self.centralwidget)
-        self.output_label.setGeometry(QtCore.QRect(155, 570, 300, 200))
+        self.output_label.setGeometry(QtCore.QRect(15, 535, 585, 250))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.output_label.setFont(font)

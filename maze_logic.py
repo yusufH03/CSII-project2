@@ -77,14 +77,15 @@ class Logic(QMainWindow, Ui_MazeSolver):
         Reads the location of all open space and walls in the GUI maze and creates a list variable that matches it.
         :return: None
         """
+        #copy default_maze to raw_maze
         raw_maze = []
         for r in range(8):
             row_copy = []
             for c in range(8):
-                row_copy.append(self.default_maze[r][c]) #copy default_maze to raw_maze
+                row_copy.append(self.default_maze[r][c])
             raw_maze.append(row_copy)
 
-        # iterate through the editable part of the maze (inner 6x6)
+        #iterate through the editable part of the maze (inner 6x6)
         for r in range(6):
             for c in range(6):
                 button = self.editable_maze[r][c]
@@ -94,13 +95,14 @@ class Logic(QMainWindow, Ui_MazeSolver):
                 else:
                     status = 1 # set the status as open if it's not a wall
                 raw_maze[r + 1][c + 1] = status # update raw_maze
-        # remove later########################################
-        for row in raw_maze:
-            print(row)
 
         try:
-            how_to_solve_r = [d.name for d in self.solve_maze(Facing.south, raw_maze)[0][::-1]]
-            print(how_to_solve_r)
+            #Raise an error if the maze can't be solved (end of maze is blocked).
+            directions, success = self.solve_maze(Facing.south, raw_maze)
+            if not success:
+                raise ValueError(":( Maze is unsolvable. Please create a new maze and try again.")
+            how_to_solve_r = [d.name for d in directions[::-1]] #raw directions to solve the maze
+            #make the directions easily understood
             how_to_solve = "How to solve your maze:"
             for d in how_to_solve_r:
                 if d == "forward":
@@ -109,11 +111,10 @@ class Logic(QMainWindow, Ui_MazeSolver):
                     how_to_solve += f" Turn right."
                 elif d == "left":
                     how_to_solve += f" Turn left."
-            how_to_solve += ". Congratulations, you made it out!"
-            self.output_label.setText(how_to_solve) # tell the user how to solve the maze
-        except Exception as e:
-            print(e)
-            self.output_label.setText("Maze is unsolvable. Please create a new maze and try again.")
+            how_to_solve += ".. \nCongratulations, you made it out! :)"
+            self.output_label.setText(how_to_solve) #tell the user how to solve the maze
+        except ValueError as e:
+            self.output_label.setText(str(e)) #display the error message
 
     def solve_maze(self, facing: Facing, raw_maze: list, x: int = 0, y: int = 1) -> tuple[list[Directions], bool]:
         """
@@ -124,22 +125,21 @@ class Logic(QMainWindow, Ui_MazeSolver):
         :param facing: current facing direction (N,S,E,W)
         :return: list of directions to the current x,y in reverse order; if directions are valid
         """
-        print(f"{x},{y}") #remove
-        # check base cases
+        #check base cases
         if raw_maze[x][y] == 0: #wall
             return [], False
         elif raw_maze[x][y] == 2: #end of maze
             return [], True
         elif raw_maze[x][y] == 3: #visited
             return [], False
-        # mark which are visited
+        #mark which are visited
         raw_maze[x][y] = 3
 
         current_directions = [Directions.forward]  #last step in solving the maze is always going forward
         new_x, new_y = self.calculate_coords(facing, x, y) #next coordinates to move to
         directions, success = self.solve_maze(facing, raw_maze, new_x, new_y) #update the most current directions and their success to variables
 
-        # Always move forward if possible, otherwise rotate clockwise once.
+        #Always move forward if possible, otherwise rotate clockwise once.
         if success:
             directions.extend(current_directions)  #for item in current_directions, append directions
             return directions, success
